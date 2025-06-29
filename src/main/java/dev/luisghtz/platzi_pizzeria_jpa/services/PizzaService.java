@@ -21,4 +21,8 @@ public class PizzaService {
     // return this.jdbcTemplate.query("SELECT * FROM pizza", new
     // BeanPropertyRowMapper<>(PizzaEntity.class));
   }
+
+  public PizzaEntity getById(int id) {
+    return pizzaRepository.findById(id).orElse(null);
+  }
 }
