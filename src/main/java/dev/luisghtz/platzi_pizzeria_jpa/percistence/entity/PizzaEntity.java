@@ -18,7 +18,7 @@ import lombok.Setter;
 public class PizzaEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(nullable = false)
+  @Column(name = "id_pizza", nullable = false)
   private Integer id;
 
   @Column(nullable = false, length = 30, unique = true)
