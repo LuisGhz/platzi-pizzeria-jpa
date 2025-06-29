@@ -24,7 +24,6 @@ import lombok.Setter;
 public class OrderEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id_order")
   private Integer id;
 
   @Column(name = "id_customer", nullable = false, length = 15)
@@ -43,7 +42,7 @@ public class OrderEntity {
   private String additionalNotes;
 
   @OneToOne
-  @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", insertable = false, updatable = false)
+  @JoinColumn(name = "id_customer", referencedColumnName = "id", insertable = false, updatable = false)
   private CustomerEntity customer;
 
   @OneToMany(mappedBy = "order")

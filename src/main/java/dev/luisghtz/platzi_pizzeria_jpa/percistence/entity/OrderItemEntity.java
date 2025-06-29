@@ -37,10 +37,10 @@ public class OrderItemEntity {
   private Double price;
 
   @ManyToOne
-  @JoinColumn(name = "id_order", referencedColumnName = "id_order", insertable = false, updatable = false)
+  @JoinColumn(name = "id_order", referencedColumnName = "id", insertable = false, updatable = false)
   private OrderEntity order;
 
   @OneToOne
-  @JoinColumn(name = "id_pizza", referencedColumnName = "id_pizza", insertable = false, updatable = false)
+  @JoinColumn(name = "id_pizza", referencedColumnName = "id", insertable = false, updatable = false)
   private PizzaEntity pizza;
 }
