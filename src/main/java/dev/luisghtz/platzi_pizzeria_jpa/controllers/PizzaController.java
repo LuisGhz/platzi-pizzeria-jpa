@@ -33,7 +33,11 @@ public class PizzaController {
 
   @PostMapping
   public ResponseEntity<PizzaEntity> save(@RequestBody PizzaEntity entity) {
-    return new ResponseEntity<>(pizzaService.save(entity), HttpStatus.CREATED);
+    if (entity.getId() == null || !pizzaService.exist(entity.getId())) {
+      return new ResponseEntity<>(pizzaService.save(entity), HttpStatus.CREATED);
+    }
+
+    return ResponseEntity.badRequest().build();
   }
 
 }
