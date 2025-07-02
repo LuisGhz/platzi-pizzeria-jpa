@@ -13,6 +13,7 @@ import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.PizzaEntity;
 import dev.luisghtz.platzi_pizzeria_jpa.services.PizzaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -39,5 +40,15 @@ public class PizzaController {
 
     return ResponseEntity.badRequest().build();
   }
+
+  @PutMapping
+  public ResponseEntity<PizzaEntity> update(@RequestBody PizzaEntity entity) {
+    if (entity.getId() != null || pizzaService.exist(entity.getId())) {
+      return new ResponseEntity<>(pizzaService.save(entity), HttpStatus.CREATED);
+    }
+
+    return ResponseEntity.badRequest().build();
+  }
+
 
 }
