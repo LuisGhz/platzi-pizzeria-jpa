@@ -44,6 +44,11 @@ public class PizzaController {
     return ResponseEntity.ok(pizzaService.getWith(ingredient));
   }
 
+  @GetMapping("without")
+  public ResponseEntity<List<PizzaEntity>> getWithout(@RequestParam String ingredient) {
+    return ResponseEntity.ok(pizzaService.getWithout(ingredient));
+  }
+
   @GetMapping("{id}")
   public ResponseEntity<PizzaEntity> getById(@PathVariable int id) {
     return ResponseEntity.ok(pizzaService.getById(id));
