@@ -2,6 +2,7 @@ package dev.luisghtz.platzi_pizzeria_jpa.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,12 +26,13 @@ public class PizzaController {
   private final PizzaService pizzaService;
 
   @GetMapping
-  public ResponseEntity<List<PizzaEntity>> getAll() {
-    return ResponseEntity.ok(pizzaService.getAll());
+  public ResponseEntity<Page<PizzaEntity>> getAll(
+      @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int elements) {
+    return ResponseEntity.ok(pizzaService.getAll(page, elements));
   }
 
   @GetMapping("available")
-  public ResponseEntity<List<PizzaEntity>> getAavailable() {
+  public ResponseEntity<List<PizzaEntity>> getAvailable() {
     return ResponseEntity.ok(pizzaService.getAvailable());
   }
 
