@@ -1,7 +1,11 @@
 package dev.luisghtz.platzi_pizzeria_jpa.percistence.entity;
 
+import java.io.Serializable;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import dev.luisghtz.platzi_pizzeria_jpa.percistence.audit.AuditPizzaListener;
+import dev.luisghtz.platzi_pizzeria_jpa.percistence.audit.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -12,14 +16,16 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "pizza")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({ AuditingEntityListener.class, AuditPizzaListener.class })
 @Setter
 @Getter
 @NoArgsConstructor
-public class PizzaEntity extends AuditableEntity {
+@ToString
+public class PizzaEntity extends AuditableEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false)
@@ -42,4 +48,15 @@ public class PizzaEntity extends AuditableEntity {
 
   @Column(columnDefinition = "TINYINT", nullable = false)
   private Boolean available;
+
+  // Manual copy constructor
+  public PizzaEntity(PizzaEntity other) {
+    this.id = other.id;
+    this.name = other.name;
+    this.description = other.description;
+    this.price = other.price;
+    this.vegetarian = other.vegetarian;
+    this.vegan = other.vegan;
+    this.available = other.available;
+  }
 }
