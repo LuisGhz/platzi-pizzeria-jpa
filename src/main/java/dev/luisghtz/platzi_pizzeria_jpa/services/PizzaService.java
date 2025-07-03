@@ -2,9 +2,11 @@ package dev.luisghtz.platzi_pizzeria_jpa.services;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 // import org.springframework.jdbc.core.BeanPropertyRowMapper;
 // import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.PizzaEntity;
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.repository.PizzaRepository;
@@ -28,6 +30,12 @@ public class PizzaService {
 
   public List<PizzaEntity> getByName(String name) {
     return pizzaRepository.findAllByAvailableTrueAndNameIgnoreCase(name);
+  }
+
+  public PizzaEntity getFirstByName(String name) {
+    return pizzaRepository.findFirstByAvailableTrueAndNameIgnoreCase(name)
+        .orElseThrow(() -> new ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Pizza not found with name: " + name));
   }
 
   public List<PizzaEntity> getWith(String ingredient) {
