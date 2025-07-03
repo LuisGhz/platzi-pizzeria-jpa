@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.PizzaEntity;
 import dev.luisghtz.platzi_pizzeria_jpa.services.PizzaService;
+import dev.luisghtz.platzi_pizzeria_jpa.services.dto.UpdatePizzaPriceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,8 +34,8 @@ public class PizzaController {
 
   @GetMapping("available")
   public ResponseEntity<Page<PizzaEntity>> getAvailable(
-      @RequestParam(defaultValue = "0") int page, 
-      @RequestParam(defaultValue = "10") int elements, 
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int elements,
       @RequestParam(defaultValue = "price") String sortBy,
       @RequestParam(defaultValue = "asc") String sortOrder) {
     return ResponseEntity.ok(pizzaService.getAvailable(page, elements, sortBy, sortOrder));
@@ -86,6 +87,18 @@ public class PizzaController {
     }
 
     return ResponseEntity.badRequest().build();
+  }
+
+  @PutMapping("price/update")
+  public ResponseEntity<String> putMethodName(@RequestBody UpdatePizzaPriceDto newPizzaPrice) {
+    if (newPizzaPrice.getId() <= 0 || newPizzaPrice.getPrice() <= 0) {
+      return ResponseEntity.badRequest().body("Invalid pizza ID or price");
+    }
+    if (!pizzaService.exist(newPizzaPrice.getId())) {
+      return ResponseEntity.notFound().build();
+    }
+    pizzaService.updatePrice(newPizzaPrice);
+    return ResponseEntity.ok("Pizza price updated successfully");
   }
 
   @DeleteMapping("{id}")

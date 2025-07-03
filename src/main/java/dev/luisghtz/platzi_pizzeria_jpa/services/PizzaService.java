@@ -10,11 +10,13 @@ import org.springframework.http.HttpStatus;
 // import org.springframework.jdbc.core.BeanPropertyRowMapper;
 // import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.PizzaEntity;
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.repository.PizzaPageSortRepository;
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.repository.PizzaRepository;
+import dev.luisghtz.platzi_pizzeria_jpa.services.dto.UpdatePizzaPriceDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -65,6 +67,11 @@ public class PizzaService {
 
   public PizzaEntity save(PizzaEntity pizza) {
     return pizzaRepository.save(pizza);
+  }
+
+  @Transactional
+  public void updatePrice(UpdatePizzaPriceDto updatePizzaPriceDto) {
+    pizzaRepository.updatePrice(updatePizzaPriceDto);
   }
 
   public void delete(int id) {
