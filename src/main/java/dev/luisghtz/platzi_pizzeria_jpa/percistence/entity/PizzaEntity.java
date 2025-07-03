@@ -1,7 +1,10 @@
 package dev.luisghtz.platzi_pizzeria_jpa.percistence.entity;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,10 +15,11 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "pizza")
+@EntityListeners(AuditingEntityListener.class)
 @Setter
 @Getter
 @NoArgsConstructor
-public class PizzaEntity {
+public class PizzaEntity extends AuditableEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false)
