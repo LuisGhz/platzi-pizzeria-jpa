@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping; 
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -21,6 +21,11 @@ public class OrderController {
   @GetMapping()
   public ResponseEntity<List<OrderEntity>> getMethodName() {
     return ResponseEntity.ok(orderService.getAll());
+  }
+
+  @GetMapping("/today")
+  public ResponseEntity<List<OrderEntity>> getAllAfterDate() {
+    return ResponseEntity.ok(orderService.getAllAfterDate());
   }
 
 }

@@ -1,5 +1,7 @@
 package dev.luisghtz.platzi_pizzeria_jpa.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -15,5 +17,10 @@ public class OrderService {
 
   public List<OrderEntity> getAll() {
     return orderRepository.findAll();
+  }
+
+  public List<OrderEntity> getAllAfterDate() {
+    LocalDateTime today = LocalDate.now().atTime(0, 0);
+    return orderRepository.findAllByDateAfter(today);
   }
 }
