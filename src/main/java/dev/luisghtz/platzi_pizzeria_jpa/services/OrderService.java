@@ -31,4 +31,9 @@ public class OrderService {
     List<String> methods = List.of(DELIVERY, CARRYOUT);
     return orderRepository.findAllByMethodIn(methods);
   }
+
+  public List<OrderEntity> getInSiteOrders() {
+    List<String> methods = List.of(IN_SITE);
+    return orderRepository.findAllByMethodIn(methods);
+  }
 }

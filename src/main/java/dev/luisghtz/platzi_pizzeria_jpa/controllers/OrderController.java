@@ -12,7 +12,6 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @RestController
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
@@ -33,6 +32,10 @@ public class OrderController {
   public ResponseEntity<List<OrderEntity>> getOutsideOrders() {
     return ResponseEntity.ok(orderService.getOutsideOrders());
   }
-  
+
+  @GetMapping("/inside")
+  public ResponseEntity<List<OrderEntity>> getInSiteOrders() {
+    return ResponseEntity.ok(orderService.getInSiteOrders());
+  }
 
 }
