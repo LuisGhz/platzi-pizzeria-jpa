@@ -39,6 +39,11 @@ public class PizzaController {
     return ResponseEntity.ok(pizzaService.getByName(name));
   }
 
+  @GetMapping("with")
+  public ResponseEntity<List<PizzaEntity>> getWith(@RequestParam String ingredient) {
+    return ResponseEntity.ok(pizzaService.getWith(ingredient));
+  }
+
   @GetMapping("{id}")
   public ResponseEntity<PizzaEntity> getById(@PathVariable int id) {
     return ResponseEntity.ok(pizzaService.getById(id));
