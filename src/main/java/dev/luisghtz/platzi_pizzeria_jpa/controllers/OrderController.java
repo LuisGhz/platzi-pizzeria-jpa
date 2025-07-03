@@ -44,4 +44,9 @@ public class OrderController {
     return ResponseEntity.ok(orderService.getInSiteOrders());
   }
 
+  @GetMapping("/summary")
+  public ResponseEntity<?> getOrderSummary(@RequestParam int orderId) {
+    return ResponseEntity.ok(orderService.getOrderSummary(orderId));
+  }
+
 }

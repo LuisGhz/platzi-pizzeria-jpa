@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.OrderEntity;
+import dev.luisghtz.platzi_pizzeria_jpa.percistence.projection.OrderSummary;
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -39,5 +40,9 @@ public class OrderService {
 
   public List<OrderEntity> getCustomerOrders(String idCustomer) {
     return orderRepository.findCustomerOrders(idCustomer);
+  }
+
+  public OrderSummary getOrderSummary(int orderId) {
+    return orderRepository.findSummary(orderId);
   }
 }
