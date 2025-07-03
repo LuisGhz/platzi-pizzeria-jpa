@@ -9,4 +9,6 @@ import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.OrderEntity;
 
 public interface OrderRepository extends ListCrudRepository<OrderEntity, Integer> {
   List<OrderEntity> findAllByDateAfter(LocalDateTime date);
+
+  List<OrderEntity> findAllByMethodIn(List<String> methods);
 }

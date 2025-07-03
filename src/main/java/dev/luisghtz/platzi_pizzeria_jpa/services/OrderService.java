@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderService {
   private final OrderRepository orderRepository;
+  private final String DELIVERY = "D";
+  private final String CARRYOUT = "C";
+  private final String IN_SITE = "S";
 
   public List<OrderEntity> getAll() {
     return orderRepository.findAll();
@@ -22,5 +25,10 @@ public class OrderService {
   public List<OrderEntity> getAllAfterDate() {
     LocalDateTime today = LocalDate.now().atTime(0, 0);
     return orderRepository.findAllByDateAfter(today);
+  }
+
+  public List<OrderEntity> getOutsideOrders() {
+    List<String> methods = List.of(DELIVERY, CARRYOUT);
+    return orderRepository.findAllByMethodIn(methods);
   }
 }
