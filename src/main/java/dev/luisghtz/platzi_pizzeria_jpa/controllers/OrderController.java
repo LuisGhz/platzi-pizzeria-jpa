@@ -1,6 +1,7 @@
 package dev.luisghtz.platzi_pizzeria_jpa.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.OrderEntity;
@@ -21,6 +22,11 @@ public class OrderController {
   @GetMapping()
   public ResponseEntity<List<OrderEntity>> getMethodName() {
     return ResponseEntity.ok(orderService.getAll());
+  }
+
+  @GetMapping("/customer")
+  public ResponseEntity<List<OrderEntity>> getCustomerOrders(@RequestParam String id) {
+    return ResponseEntity.ok(orderService.getCustomerOrders(id));
   }
 
   @GetMapping("/today")
