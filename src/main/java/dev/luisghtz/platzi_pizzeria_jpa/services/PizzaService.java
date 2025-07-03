@@ -22,6 +22,14 @@ public class PizzaService {
     // BeanPropertyRowMapper<>(PizzaEntity.class));
   }
 
+  public List<PizzaEntity> getAvailable() {
+    return pizzaRepository.findAllByAvailableTrueOrderByPrice();
+  }
+
+  public List<PizzaEntity> getByName(String name) {
+    return pizzaRepository.findAllByAvailableTrueAndNameIgnoreCase(name);
+  }
+
   public PizzaEntity getById(int id) {
     return pizzaRepository.findById(id).orElse(null);
   }

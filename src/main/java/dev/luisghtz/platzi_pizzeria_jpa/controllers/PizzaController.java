@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/pizzas")
@@ -26,6 +27,16 @@ public class PizzaController {
   @GetMapping
   public ResponseEntity<List<PizzaEntity>> getAll() {
     return ResponseEntity.ok(pizzaService.getAll());
+  }
+
+  @GetMapping("available")
+  public ResponseEntity<List<PizzaEntity>> getAavailable() {
+    return ResponseEntity.ok(pizzaService.getAvailable());
+  }
+
+  @GetMapping("byname")
+  public ResponseEntity<List<PizzaEntity>> getMethodName(@RequestParam String name) {
+    return ResponseEntity.ok(pizzaService.getByName(name));
   }
 
   @GetMapping("{id}")
