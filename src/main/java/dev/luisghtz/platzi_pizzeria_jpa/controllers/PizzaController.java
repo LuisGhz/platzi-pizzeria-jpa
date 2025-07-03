@@ -44,6 +44,11 @@ public class PizzaController {
     return ResponseEntity.ok(pizzaService.getFirstByName(name));
   }
 
+  @GetMapping("cheaper")
+  public ResponseEntity<List<PizzaEntity>> getCheaper(@RequestParam Double price) {
+    return ResponseEntity.ok(pizzaService.getCheaper(price));
+  }
+
   @GetMapping("with")
   public ResponseEntity<List<PizzaEntity>> getWith(@RequestParam String ingredient) {
     return ResponseEntity.ok(pizzaService.getWith(ingredient));

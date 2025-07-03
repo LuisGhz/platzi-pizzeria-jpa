@@ -18,5 +18,7 @@ public interface PizzaRepository extends CrudRepository<PizzaEntity, Integer> {
 
   List<PizzaEntity> findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(String description);
 
+  List<PizzaEntity> findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(Double price);
+
   long countByVeganTrue();
 }

@@ -46,6 +46,10 @@ public class PizzaService {
     return pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
   }
 
+  public List<PizzaEntity> getCheaper(Double price) {
+    return pizzaRepository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
+  }
+
   public PizzaEntity getById(int id) {
     return pizzaRepository.findById(id).orElse(null);
   }
