@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 // import org.springframework.jdbc.core.BeanPropertyRowMapper;
 // import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,8 +31,10 @@ public class PizzaService {
     // BeanPropertyRowMapper<>(PizzaEntity.class));
   }
 
-  public List<PizzaEntity> getAvailable() {
-    return pizzaRepository.findAllByAvailableTrueOrderByPrice();
+  public Page<PizzaEntity> getAvailable(int page, int elements, String sortBy, String sortOrder) {
+    Sort sort = Sort.by(Sort.Direction.fromString(sortOrder), sortBy);
+    Pageable pageable = PageRequest.of(page, elements, sort);
+    return pizzaPageSortRepository.findAllByAvailableTrue(pageable);
   }
 
   public List<PizzaEntity> getByName(String name) {
