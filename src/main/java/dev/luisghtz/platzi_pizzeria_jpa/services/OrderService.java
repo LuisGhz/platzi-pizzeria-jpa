@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.OrderEntity;
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.projection.OrderSummary;
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.repository.OrderRepository;
+import dev.luisghtz.platzi_pizzeria_jpa.services.dto.RandomOrderDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -44,5 +45,11 @@ public class OrderService {
 
   public OrderSummary getOrderSummary(int orderId) {
     return orderRepository.findSummary(orderId);
+  }
+
+  public boolean saveRandomOrder(RandomOrderDto randomOrderDto) {
+    return orderRepository.saveRandomOrder(
+        randomOrderDto.getIdCustomer(),
+        randomOrderDto.getMethod());
   }
 }

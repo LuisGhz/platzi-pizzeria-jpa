@@ -6,12 +6,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.luisghtz.platzi_pizzeria_jpa.percistence.entity.OrderEntity;
 import dev.luisghtz.platzi_pizzeria_jpa.services.OrderService;
+import dev.luisghtz.platzi_pizzeria_jpa.services.dto.RandomOrderDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -47,6 +51,16 @@ public class OrderController {
   @GetMapping("/summary")
   public ResponseEntity<?> getOrderSummary(@RequestParam int orderId) {
     return ResponseEntity.ok(orderService.getOrderSummary(orderId));
+  }
+
+  @PostMapping("/random")
+  public ResponseEntity<?> saveRandomOrder(@RequestBody RandomOrderDto randomOrderDto) {
+    boolean saved = orderService.saveRandomOrder(randomOrderDto);
+    if (saved) {
+      return ResponseEntity.ok("Order saved successfully");
+    } else {
+      return ResponseEntity.status(Response.SC_INTERNAL_SERVER_ERROR).body("Failed to save order");
+    }
   }
 
 }
